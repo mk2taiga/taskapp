@@ -10,6 +10,9 @@ import RealmSwift
 
 class Task: Object {
     
+//    カテゴリー
+    dynamic var category: String = ""
+    
     // 管理用 ID。プライマリーキー
     dynamic var id = 0
     
