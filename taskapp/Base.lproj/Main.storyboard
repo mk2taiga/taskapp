@@ -23,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="n0b-pZ-JPP">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="108" width="375" height="559"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="4Hs-W5-rTa" detailTextLabel="g2t-CF-Oje" style="IBUITableViewCellStyleSubtitle" id="9ib-7F-IWV">
@@ -52,13 +52,20 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <searchBar contentMode="redraw" placeholder="検索キーワード" translatesAutoresizingMaskIntoConstraints="NO" id="10p-uR-5gs">
+                                <rect key="frame" x="0.0" y="64" width="375" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="n0b-pZ-JPP" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="Ayr-tD-h5G"/>
+                            <constraint firstAttribute="trailing" secondItem="10p-uR-5gs" secondAttribute="trailing" id="0fw-x3-NvU"/>
+                            <constraint firstAttribute="trailing" secondItem="n0b-pZ-JPP" secondAttribute="trailing" id="8hj-JI-555"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="n0b-pZ-JPP" secondAttribute="bottom" id="EjJ-w7-0Ot"/>
-                            <constraint firstItem="n0b-pZ-JPP" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Haq-2r-8ya"/>
-                            <constraint firstAttribute="trailing" secondItem="n0b-pZ-JPP" secondAttribute="trailing" id="WeF-iw-QMg"/>
+                            <constraint firstItem="10p-uR-5gs" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="GAD-rX-MPh"/>
+                            <constraint firstItem="n0b-pZ-JPP" firstAttribute="top" secondItem="10p-uR-5gs" secondAttribute="bottom" id="f3A-7N-Zf5"/>
+                            <constraint firstItem="n0b-pZ-JPP" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="gee-CO-tyD"/>
+                            <constraint firstItem="10p-uR-5gs" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="if8-nF-qYv"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="XO2-PQ-WzF">
@@ -69,6 +76,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="searchBar" destination="10p-uR-5gs" id="bmD-M8-Vah"/>
                         <outlet property="tableView" destination="n0b-pZ-JPP" id="2HH-aE-zVI"/>
                         <segue destination="Wkd-Xs-cF9" kind="show" identifier="cellSegue" id="HlU-wb-O8t"/>
                     </connections>

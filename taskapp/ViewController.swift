@@ -10,8 +10,10 @@ import UIKit
 import RealmSwift
 import UserNotifications
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
 
+    
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
     // Realmインスタンスを取得する
@@ -20,15 +22,31 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // DB内のタスクが格納されるリスト。
     // 日付近い順\順でソート：降順
     // 以降内容をアップデートするとリスト内は自動的に更新される。
-    let taskArray = try! Realm().objects(Task.self).sorted(byProperty: "date", ascending: false)
+    var taskArray = try! Realm().objects(Task.self).sorted(byProperty: "date", ascending: false)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         tableView.delegate = self
         tableView.dataSource = self
+//        サーチバーのデリゲート追加
+        searchBar.delegate = self
+        
     }
-
+    
+    //検索ボタン押下時の呼び出しメソッド
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        // サーチバーの入力値を取得
+        if searchBar.text!.isEmpty {
+            taskArray = try! Realm().objects(Task.self).sorted(byProperty: "date", ascending: false)
+        }else {
+            let predicate = NSPredicate(format: "category = %@", searchBar.text!)
+            taskArray = try! Realm().objects(Task.self).filter(predicate)
+        }
+        tableView.reloadData()
+    }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -45,9 +63,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // 再利用可能な cell を得る
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         
-        // Cellに値を設定する.
+        // Cellに値を設定する
         let task = taskArray[indexPath.row]
-        cell.textLabel?.text = task.title
+        cell.textLabel?.text = "[\(task.category)] : \(task.title)"
         
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
